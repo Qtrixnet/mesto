@@ -1,5 +1,4 @@
 @import url(./__logo/header__logo.css);
-@import url(./__line/header__line.css);
 
 .header {
   padding: 45px 15% 0px;
@@ -7,9 +6,23 @@
   box-sizing: border-box;
 }
 
+.header::after {
+  content: "";
+  display: block;
+  border: 0;
+  border-bottom: 1px solid #545454;
+  opacity: .7;
+  padding-top: 40px;
+  box-sizing: border-box;
+}
+
+
 @media screen and (max-width: 1023px) {
   .header {
-    border-bottom: 1px solid #545454;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
     padding: 28px 27px 31px;
+  }
+  .header::after {
+    display: none;
   }
 }
