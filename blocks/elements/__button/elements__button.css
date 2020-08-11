@@ -11,6 +11,7 @@
 
 .elements__button:hover {
   cursor: pointer;
+  opacity: .6;
 }
 
 .elements__button:focus {
