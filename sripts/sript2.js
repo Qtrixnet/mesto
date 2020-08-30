@@ -124,6 +124,7 @@ const cardAddCloseButton = popup[1].querySelector('.popup__close-button');
 cardAddCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
   clickClose.classList.toggle('popup_opened');
+  popupAddForm.reset();
 });
 
 // закрытие попапа с фото
