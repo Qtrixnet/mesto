@@ -5,6 +5,7 @@
   margin: 0 0 30px;
   padding: 0;
   padding-bottom: 13px;
+  transition: all .2 linear;
 }
 
 .popup__input:focus {
@@ -12,5 +13,5 @@
 }
 
 .popup__input::placeholder {
-  color: #000;
+  color: #C4C4C4;
 }

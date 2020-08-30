@@ -24,48 +24,6 @@
       </section>
       <section class="elements">
         <ul class="elements__list">
-          <li class="elements__list-item">
-            <img class="elements__picture" src="./images/Australia.jpg" alt="Пляж с черным песком в Австралии">
-            <div class="elements__container">
-              <h2 class="elements__text">Australia</h2>
-              <button type="button" class="elements__button"></button>
-            </div>
-          </li>
-          <li class="elements__list-item">
-            <img class="elements__picture" src="./images/City-of-Bristol.jpg" alt="Река возле города Бристоль, Великобритания">
-            <div class="elements__container">
-              <h2 class="elements__text">City of Bristol, United Kingdom</h2>
-              <button type="button" class="elements__button"></button>
-            </div>
-          </li>
-          <li class="elements__list-item">
-            <img class="elements__picture" src="./images/Los-Angeles.jpg" alt="Побережье Лос-Анджелеса, США">
-            <div class="elements__container">
-              <h2 class="elements__text">Los Angeles, United States</h2>
-              <button type="button" class="elements__button"></button>
-            </div>
-          </li>
-          <li class="elements__list-item">
-            <img class="elements__picture" src="./images/maldives.jpg" alt="Мальдивы">
-            <div class="elements__container">
-              <h2 class="elements__text">Maldives</h2>
-              <button type="button" class="elements__button"></button>
-            </div>
-          </li>
-          <li class="elements__list-item">
-            <img class="elements__picture" src="./images/Monterey.jpg" alt="Берег залива Монтерей, США">
-            <div class="elements__container">
-              <h2 class="elements__text">Monterey, United States</h2>
-              <button type="button" class="elements__button"></button>
-            </div>
-          </li>
-          <li class="elements__list-item">
-            <img class="elements__picture" src="./images/Oslo.jpg" alt="Залив возле города Осло, Норвегия">
-            <div class="elements__container">
-              <h2 class="elements__text">Oslo, Norge</h2>
-              <button type="button" class="elements__button"></button>
-            </div>
-          </li>
         </ul>
       </section>
     </main>
@@ -73,7 +31,7 @@
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
     <div class="popup">
-      <form name="popup" class="popup__container">
+      <form name="profile" class="popup__container">
         <p class="popup__title">Редактировать профиль</p>
         <input name="name" class="popup__input" type="text">
         <input name="job" class="popup__input" type="text">
@@ -81,7 +39,35 @@
         <button type="button" class="popup__close-button"></button>
       </form>
     </div>
+    <div class="popup">
+      <form name="newPlace" class="popup__container">
+        <p class="popup__title">Новое место</p>
+        <input required name="placeName" class="popup__input" placeholder="Название" type="text">
+        <input required name="placeLink" class="popup__input" placeholder="Ссылка на картинку" type="text">
+        <button type="submit" class="popup__save-button">Создать</button>
+        <button type="button" class="popup__close-button"></button>
+      </form>
+    </div>
+    <div class="popup">
+      <div class="popup__fullScreen">
+        <figure class="popup__image-desription">
+          <img class="popup__image" src="" alt="">
+          <figcaption class="popup__image-subtitle"></figcaption>
+          <button type="button" class="popup__close-button"></button>
+        </figure>
+      </div>
+    </div>
+    <template class="cardTemplate">
+      <li class="elements__list-item">
+        <img class="elements__picture" src="" alt="">
+        <div class="elements__container">
+          <h2 class="elements__text"></h2>
+          <button type="button" class="elements__like-button"></button>
+          <button type="button" class="elements__delete-button"></button>
+        </div>
+      </li>
+    </template>
   </div>
-<script src="sripts/sript.js"></script>
+<script src="sripts/sript2.js"></script>
 </body>
 </html>

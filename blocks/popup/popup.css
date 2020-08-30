@@ -4,6 +4,10 @@
 @import url(./__name/popup__name.css);
 @import url(./__save-button/popup__save-button.css);
 @import url(./__title/popup__title.css);
+@import url(./__fullscreen/popup__fullscreen.css);
+@import url(./__image/popup__image.css);
+@import url(./__image-description/popup__image-description.css);
+@import url(./__image-subtitle/popup__image-subtitle.css);
 
 .popup {
   width: 100%;
@@ -13,5 +17,8 @@
   z-index: 2;
   justify-content: center;
   align-items: center;
-  display: none;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s linear;
 }
