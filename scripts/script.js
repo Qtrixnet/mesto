@@ -1,3 +1,6 @@
+
+// Срипты исправил)) Один раз не прожал букву С и накопипастил без неё везде :))
+
 'use strict';
 //массив с карточками
 const initialCards = [
@@ -27,37 +30,44 @@ const initialCards = [
 }
 ];
 
-//выбираем все попапы на странице
-const popup = document.querySelectorAll('.popup');
+//Шаблон карточки
+const cardTemplate = document.querySelector('.cardTemplate');
 
-//Редактирование
-//кнопка редактирования профиля
-const profileEditButton = document.querySelector('.profile__edit-button');
-//форма редактирования профиля
-const popupEditForm = popup[0].querySelector('.popup__container');
-//кнопка сохранения профиля
-const profileSaveButton = popupEditForm.querySelector('.popup__save-button');
-//инпут с именем в форме редактирования
-const nameInput = popupEditForm.querySelector('.popup__input[name="name"]');
-//инпут с профессией в форме редактирования
-const jobInput = popupEditForm.querySelector('.popup__input[name="job"]');
-//элементы для вставки значений
+//Поля профиля для вставки значений из формы
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 
+//Редактирование
+//Попап редактирования
+const editPopup = document.getElementById('editProfile');
+//кнопка редактирования профиля
+const profileEditButton = document.querySelector('.profile__edit-button');
+//кнопка сохранения профиля
+const profileSaveButton = editPopup.querySelector('.popup__save-button');
+//инпут с именем в форме редактирования
+const nameInput = editPopup.querySelector('.popup__input[name="name"]');
+//инпут с профессией в форме редактирования
+const jobInput = editPopup.querySelector('.popup__input[name="job"]');
+
 //Добавление
+//Попап добавления
+const addPopup = document.getElementById('addCard');
 //кнопка добавления карточки
 const cardAddButton = document.querySelector('.profile__add-button');
 //форма добавления карточки
-const popupAddForm = popup[1].querySelector('.popup__container');
+const popupAddForm = addPopup.querySelector('.popup__container');
 //кнопка сохранения карточки
-const cardSaveButton = popup[1].querySelector('.popup__save-button');
-//выбираем картинку и ее подпись
-const popupPicture = document.querySelector('.popup__image');
-const popupDescription = document.querySelector('.popup__image-subtitle');
+const cardSaveButton = addPopup.querySelector('.popup__save-button');
 //инпуты в форме добавления
 const placeName = document.querySelector('.popup__input[name="placeName"]');
 const placeLink = document.querySelector('.popup__input[name="placeLink"]');
+
+//Просмотр фото
+//Попап просмотра
+const openPicturePopup = document.getElementById('openPicture');
+//выбираем картинку и ее подпись
+const popupPicture = document.querySelector('.popup__image');
+const popupDescription = document.querySelector('.popup__image-subtitle');
 
 //контейнер для вставки карточек
 const cardsContainer = document.querySelector('.elements__list');
@@ -69,8 +79,8 @@ function togglePopup(popup) {
 
 //добавление карточек
 const addCardToContainer = (cardElement)  => {
-  //шаблон карточки
-  const cardsElement = document.querySelector('.cardTemplate').content.cloneNode(true);
+  //клонирование карточки
+  const cardsElement = cardTemplate.content.cloneNode(true);
   //название карточки
   cardsElement.querySelector('.elements__text').textContent = cardElement.name;
   //картинка карточки
@@ -96,7 +106,7 @@ const addCardToContainer = (cardElement)  => {
     const cardText = cardName.querySelector('.elements__text').textContent;
 
     // открытие попапа с фото
-    popup[2].classList.toggle('popup_opened');
+    openPicturePopup.classList.toggle('popup_opened');
     // присвоение ссылки картинке
     popupPicture.src = cardLink;
     // присвоение названия фото
@@ -113,14 +123,14 @@ const reversCards = initialCards.reverse();
 reversCards.forEach(addCardToContainer);
 
 // закрытие попапа редактирования
-const popupEditCloseButton = popup[0].querySelector('.popup__close-button');
+const popupEditCloseButton = editPopup.querySelector('.popup__close-button');
 popupEditCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
   clickClose.classList.toggle('popup_opened');
 });
 
 // закрытие попапа добавления
-const cardAddCloseButton = popup[1].querySelector('.popup__close-button');
+const cardAddCloseButton = addPopup.querySelector('.popup__close-button');
 cardAddCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
   clickClose.classList.toggle('popup_opened');
@@ -128,7 +138,7 @@ cardAddCloseButton.addEventListener('click', event => {
 });
 
 // закрытие попапа с фото
-const photoCloseButton = popup[2].querySelector('.popup__close-button');
+const photoCloseButton = openPicturePopup.querySelector('.popup__close-button');
 photoCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
   clickClose.classList.toggle('popup_opened');
@@ -138,12 +148,12 @@ photoCloseButton.addEventListener('click', event => {
 profileEditButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;   
-  togglePopup(popup[0]);
+  togglePopup(editPopup);
 });
 
 //слушатель на кнопке добавления карточки
 cardAddButton.addEventListener('click', function () {  
-  togglePopup(popup[1]);
+  togglePopup(addPopup);
 });
 
 //сохранение профиля
