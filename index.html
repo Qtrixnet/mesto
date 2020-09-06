@@ -27,27 +27,51 @@
         </ul>
       </section>
     </main>
+
     <footer class="footer">
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
+
+    <!-- Попап редактирования -->
     <div id="editProfile" class="popup">
-      <form name="profile" class="popup__container">
-        <p class="popup__title">Редактировать профиль</p>
-        <input name="name" class="popup__input" type="text">
-        <input name="job" class="popup__input" type="text">
-        <button type="submit" class="popup__save-button">Сохранить</button>
+      <form name="profile" class="popup__form" novalidate>
+        <fieldset class="popup__set">
+          <p class="popup__title">Редактировать профиль</p>
+          <label class="popup__form-field">
+            <input name="name" required minlength="2" maxlength="40" class="popup__input" id="popup__name-input" type="text">
+            <span id="popup__name-input-error" class="popup__input-error"></span>
+          </label>
+          <label class="popup__form-field">
+            <input name="job" required minlength="2" maxlength="200" class="popup__input" id="popup__job-input" type="text">
+            <span id="popup__job-input-error" class="popup__input-error"></span>
+          </label>
+          <button type="submit" disabled class="popup__button popup__button_disabled">Сохранить</button>
+        </fieldset>
         <button type="button" class="popup__close-button"></button>
       </form>
+      <div class="popup__overlay"></div>
     </div>
+
+    <!-- Попап добавления -->
     <div id="addCard" class="popup">
-      <form name="newPlace" class="popup__container">
-        <p class="popup__title">Новое место</p>
-        <input required name="placeName" class="popup__input" placeholder="Название" type="text">
-        <input required name="placeLink" class="popup__input" placeholder="Ссылка на картинку" type="text">
-        <button type="submit" class="popup__save-button">Создать</button>
+      <form name="newPlace" class="popup__form" novalidate>
+        <fieldset class="popup__set">
+          <p class="popup__title">Новое место</p>
+          <label class="popup__form-field">
+            <input name="placeName" class="popup__input" id="popup__placeName-input" required minlength="1" maxlength="30" placeholder="Название" type="text">
+            <span id="popup__placeName-input-error" class="popup__input-error"></span>
+          </label>
+          <label class="popup__form-field">
+            <input name="placeLink" class="popup__input" id="popup__placeLink-input" required placeholder="Ссылка на картинку" type="url">
+            <span id="popup__placeLink-input-error" class="popup__input-error"></span>
+          </label>
+          <button type="submit" class="popup__button">Создать</button>
+        </fieldset>
         <button type="button" class="popup__close-button"></button>
       </form>
+      <div class="popup__overlay"></div>
     </div>
+
     <div id="openPicture" class="popup">
       <div class="popup__fullScreen">
         <div class="popup__image-desription">
@@ -56,7 +80,9 @@
           <button type="button" class="popup__close-button"></button>
         </div>
       </div>
+      <div class="popup__overlay"></div>
     </div>
+
     <template class="cardTemplate">
       <li class="elements__list-item">
         <img class="elements__picture" src="" alt="">
@@ -67,7 +93,9 @@
         </div>
       </li>
     </template>
+
   </div>
 <script src="scripts/script.js"></script>
+<script src="scripts/validate.js"></script>
 </body>
 </html>
