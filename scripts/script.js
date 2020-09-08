@@ -216,7 +216,7 @@ profileSaveButton.addEventListener('click', event => {
     popupAddForm.reset();
   //закрытие попапа
     const clickClose = event.target.closest('.popup');
-    togglePopup(clickClose);
+    closePopup(clickClose);
   });
   
 //добавление карточки
@@ -235,7 +235,7 @@ cardSaveButton.addEventListener('click', event => {
   popupAddForm.reset();
 //закрытие попапа
   const clickClose = event.target.closest('.popup');
-  togglePopup(clickClose);
+  closePopup(clickClose);
 });
 
 editOverlay.addEventListener('click', function () {
