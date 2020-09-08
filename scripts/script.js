@@ -79,9 +79,15 @@ const fullScreenOverlay = openPicturePopup.querySelector('.popup__overlay');
 //контейнер для вставки карточек
 const cardsContainer = document.querySelector('.elements__list');
 
-//Функция открытия / закрытия попапа
-function togglePopup(popup) {
-  popup.classList.toggle('popup_opened');
+//Функции открытия / закрытия попапа
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  window.onkeydown = null;
 }
 
 function resetEditPopupFields() {
@@ -105,13 +111,12 @@ function resetAddPopupFields() {
 function closeOnEsc() {
     window.onkeydown = event => {
     if ( event.keyCode == 27 ) {
-      addPopup.classList.remove('popup_opened');
-      editPopup.classList.remove('popup_opened');
-      openPicturePopup.classList.remove('popup_opened');
+      closePopup(addPopup);
+      closePopup(editPopup)
+      closePopup(openPicturePopup);
       resetEditPopupFields(editPopup);
       resetAddPopupFields(cardAddCloseButton);
       popupAddForm.reset();
-      window.onkeydown = null;
     }
   };
 }
@@ -145,7 +150,7 @@ const addCardToContainer = (cardElement)  => {
     const cardText = cardName.querySelector('.elements__text').textContent;
 
     // открытие попапа с фото
-    togglePopup(openPicturePopup);
+    openPopup(openPicturePopup);
     // присвоение ссылки картинке
     popupPicture.src = cardLink;
     // присвоение названия фото
@@ -166,40 +171,37 @@ reversCards.forEach(addCardToContainer);
 const popupEditCloseButton = editPopup.querySelector('.popup__close-button');
 popupEditCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
-  togglePopup(clickClose);
+  closePopup(clickClose);
   resetEditPopupFields(popupEditCloseButton);
-  window.onkeydown = null;
 });
 
 // закрытие попапа добавления
 const cardAddCloseButton = addPopup.querySelector('.popup__close-button');
 cardAddCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
-  togglePopup(clickClose);
+  closePopup(clickClose);
   popupAddForm.reset();
   resetAddPopupFields(cardAddCloseButton);
-  window.onkeydown = null;
 });
 
 // закрытие попапа с фото
 const photoCloseButton = openPicturePopup.querySelector('.popup__close-button');
 photoCloseButton.addEventListener('click', event => {
   const clickClose = event.target.closest('.popup');
-  togglePopup(clickClose);
-  window.onkeydown = null;
+  closePopup(clickClose);
 });
 
 //слушатель на кнопке редактирования профиля
 profileEditButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent; 
-  togglePopup(editPopup);
+  openPopup(editPopup);
   closeOnEsc(this);
 });
 
 //слушатель на кнопке добавления карточки
 cardAddButton.addEventListener('click', function () {  
-  togglePopup(addPopup);
+  openPopup(addPopup);
   closeOnEsc(this);
 });
 
@@ -215,7 +217,6 @@ profileSaveButton.addEventListener('click', event => {
   //закрытие попапа
     const clickClose = event.target.closest('.popup');
     togglePopup(clickClose);
-    window.onkeydown = null;
   });
   
 //добавление карточки
@@ -235,23 +236,19 @@ cardSaveButton.addEventListener('click', event => {
 //закрытие попапа
   const clickClose = event.target.closest('.popup');
   togglePopup(clickClose);
-  window.onkeydown = null;
 });
 
 editOverlay.addEventListener('click', function () {
-  togglePopup(editPopup);
+  closePopup(editPopup);
   resetEditPopupFields();
-  window.onkeydown = null;
 })
 
 addOverlay.addEventListener('click', function () {
-  togglePopup(addPopup);
+  closePopup(addPopup);
   resetAddPopupFields();
   popupAddForm.reset();
-  window.onkeydown = null;
 })
 
 fullScreenOverlay.addEventListener('click', function () {
-  togglePopup(openPicturePopup);
-  window.onkeydown = null;
+  closePopup(openPicturePopup);
 })
