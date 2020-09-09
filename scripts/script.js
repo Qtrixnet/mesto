@@ -83,6 +83,7 @@ const cardsContainer = document.querySelector('.elements__list');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  closeOnEsc(popup);
 }
 
 function closePopup(popup) {
@@ -155,7 +156,6 @@ const addCardToContainer = (cardElement)  => {
     popupPicture.src = cardLink;
     // присвоение названия фото
     popupDescription.textContent = cardText;
-    closeOnEsc(this);
   });
 
   //вставка карточки в дом
@@ -196,13 +196,11 @@ profileEditButton.addEventListener('click', function () {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent; 
   openPopup(editPopup);
-  closeOnEsc(this);
 });
 
 //слушатель на кнопке добавления карточки
 cardAddButton.addEventListener('click', function () {  
   openPopup(addPopup);
-  closeOnEsc(this);
 });
 
 //сохранение профиля
