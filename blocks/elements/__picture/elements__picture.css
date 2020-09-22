@@ -1,15 +1,19 @@
 .elements__picture {
-  width: 282px;
+  min-width: 100%;
+  max-width: 200%;
   height: 282px;
   align-self: flex-start;
   z-index: 1;
   margin: 0;
-  padding: 0;
   transition: all .2s linear;
+  background-color: #252525;
+  background-image: url('../../../images/Logo.svg');
+  background-position: center;
+  background-size: 80%;
+  background-repeat: no-repeat;
 }
 
 .elements__picture:hover {
   cursor: pointer;
   opacity: .6;
-  transform: scale(1.05);
 }

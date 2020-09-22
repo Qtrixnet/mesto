@@ -4,7 +4,8 @@
   top: 18px;
   right: 15px;
   z-index: 1;
-  padding: 0 0 0 25px;
+  padding: 15px;
+  box-sizing: border-box;
   width: 20px;
   height: 20px;
   background-color: transparent;
@@ -12,7 +13,7 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   border: 0;
-  transition: all .2s linear;
+  transition: all 0s linear;
 }
 
 .elements__delete-button:hover {
@@ -22,4 +23,6 @@
 
 .elements__delete-button:focus {
   outline: none;
+  background-color: black;
+  border-radius: 5px;
 }
