@@ -1,21 +1,32 @@
 // Импорты
 import { Card } from "./Card.js";
 import * as constants from "./constants.js";
+import { initialCards } from "./initialCards.js";
+import { FormValidator, enableValidation } from "./FormValidator.js"
 
 // Открытие попапа
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
-  constants.profileSaveButton.setAttribute("disabled", true);
-  constants.profileSaveButton.classList.add("popup__button_disabled");
-  constants.cardSaveButton.setAttribute("disabled", true);
-  constants.cardSaveButton.classList.add("popup__button_disabled");
+
+  // Активный попап
+  const activePopup = document.querySelector(".popup_opened");
+
+  // Сабмит в активном попапе
+  const PopupButton = activePopup.querySelector(".popup__button");
+
+  // Дизейбл кнопки происходит в классе с валидацией, но при открытии попапа также вешается дизейбл если в нем есть кнопка
+  if (activePopup.contains(PopupButton)) {
+    PopupButton.setAttribute("disabled", true);
+    PopupButton.classList.add("popup__button_disabled");
+  }
+
   closeOnEsc(popup);
 }
 
 // Закрытие попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  window.onkeydown = null;
+  window.onkeyup = null;
 }
 
 // Сброс полей формы профиля
@@ -40,13 +51,11 @@ function resetAddPopupFields() {
 
 // Закрытие на ESC
 function closeOnEsc() {
-  window.onkeydown = (event) => {
-    if (event.keyCode == 27) {
-      closePopup(constants.addPopup);
-      closePopup(constants.editPopup);
-      closePopup(constants.openPicturePopup);
-      resetEditPopupFields(constants.editPopup);
-      resetAddPopupFields(constants.cardAddCloseButton);
+  window.onkeyup = (event) => {
+    if (event.keyCode == constants.escKeyCode) {
+      // Активный попап
+      const activePopup = document.querySelector(".popup_opened");
+      closePopup(activePopup);
       constants.popupAddForm.reset();
     }
   };
@@ -59,7 +68,7 @@ const popupEditCloseButton = constants.editPopup.querySelector(
 popupEditCloseButton.addEventListener("click", (event) => {
   const clickClose = event.target.closest(".popup");
   closePopup(clickClose);
-  resetEditPopupFields(popupEditCloseButton);
+  // resetEditPopupFields(popupEditCloseButton);
 });
 
 // закрытие попапа добавления
@@ -70,7 +79,7 @@ cardAddCloseButton.addEventListener("click", (event) => {
   const clickClose = event.target.closest(".popup");
   closePopup(clickClose);
   constants.popupAddForm.reset();
-  resetAddPopupFields(cardAddCloseButton);
+  // resetAddPopupFields(cardAddCloseButton);
 });
 
 // закрытие попапа с фото
@@ -101,19 +110,14 @@ constants.cardSaveButton.addEventListener("click", (event) => {
   //отмена поведения
   event.preventDefault();
   //создание объекта из введенных данных
-  const newCard = [
-    {
+  const newCard = {
       name: constants.placeName.value,
       link: constants.placeLink.value,
-    },
-  ];
+    };
 
-  newCard.forEach((item) => {
-    const addCard = new Card(item, ".cardTemplate");
-    const cardElement = addCard.generateCard();
-
-    constants.cardsContainer.prepend(cardElement);
-  });
+  const addCard = new Card(newCard, ".cardTemplate");
+  const cardElement = addCard.generateCard();
+  constants.cardsContainer.prepend(cardElement);
 
   //сброс полей формы
   constants.popupAddForm.reset();
@@ -127,23 +131,23 @@ constants.profileEditButton.addEventListener("click", function () {
   constants.nameInput.value = constants.profileName.textContent;
   constants.jobInput.value = constants.profileJob.textContent;
   openPopup(constants.editPopup);
+  resetEditPopupFields()
 });
 
 //слушатель на кнопке добавления карточки
 constants.cardAddButton.addEventListener("click", function () {
   openPopup(constants.addPopup);
+  resetAddPopupFields()
 });
 
 //слушатель на оверлее попапа редактирования
 constants.editOverlay.addEventListener("click", function () {
   closePopup(constants.editPopup);
-  resetEditPopupFields();
 });
 
 //слушатель на оверлее попапа добавления
 constants.addOverlay.addEventListener("click", function () {
   closePopup(constants.addPopup);
-  resetAddPopupFields();
   constants.popupAddForm.reset();
 });
 
@@ -151,3 +155,25 @@ constants.addOverlay.addEventListener("click", function () {
 constants.fullScreenOverlay.addEventListener("click", function () {
   closePopup(constants.openPicturePopup);
 });
+
+initialCards.forEach((item) => {
+  const card = new Card(item, ".cardTemplate");
+  const cardExample = card.generateCard();
+
+  constants.cardsContainer.append(cardExample);
+});
+
+// Создание классов валидации
+const editPopupValidation = new FormValidator(
+  enableValidation,
+  constants.editPopup
+);
+
+editPopupValidation.enableValidation();
+
+const addPopupValidation = new FormValidator(
+  enableValidation,
+  constants.addPopup
+);
+
+addPopupValidation.enableValidation();

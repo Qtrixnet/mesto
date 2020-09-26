@@ -1,4 +1,4 @@
-const enableValidation = {
+export const enableValidation = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -7,17 +7,14 @@ const enableValidation = {
   errorClass: "popup__input-error_visible",
 };
 
-import * as constants from "./constants.js";
-
 // Создание класса валидации
-class FormValidator {
+export class FormValidator {
   constructor(popupElements, popupForm) {
     this._form = popupForm;
     this._formSelector = popupElements.formSelector;
     this._inputSelector = popupElements.inputSelector;
     this._inputErrorClass = popupElements.inputErrorClass;
     this._errorClass = popupElements.errorClass;
-    this._inputErrorClass = popupElements.inputErrorClass;
     this._submitButtonSelector = popupElements.submitButtonSelector;
     this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
   }
@@ -61,27 +58,12 @@ class FormValidator {
     this._errorElement.textContent = "";
   }
 
-  // Скрытие ошибок и очистка полей
-  hideAllErrors() {
-    const errorMessages = Array.from(
-      this._form.querySelectorAll(this._inputErrorClass)
-    );
-    this._inputs.forEach((input) => {
-      input.classList.remove(this._inputErrorClass);
-      input.value = "";
-    });
-    errorMessages.forEach((error) => {
-      error.textContent = "";
-    });
-  }
-
   // Установка слушателей
   _setEventListeners() {
     this._button = this._form.querySelector(this._submitButtonSelector);
-    // Деактивация кнопкипри открытии попапа
+    // Деактивация кнопки при открытии попапа
     this._toggleSubmit();
     // Деактивация кнопки после отправки
-    this._form.addEventListener("submit", () => this._toggleSubmit());
     this._inputs.forEach((element) => {
       element.addEventListener("input", () => {
         this._isValid(element);
@@ -93,18 +75,6 @@ class FormValidator {
   // Валидация форм
   enableValidation() {
     this._setEventListeners();
+    this._form.addEventListener("submit", () => this._toggleSubmit());
   }
 }
-
-// Создание классов валидации
-const editPopupValidation = new FormValidator(
-  enableValidation,
-  constants.editPopup
-);
-editPopupValidation.enableValidation();
-
-const addPopupValidation = new FormValidator(
-  enableValidation,
-  constants.addPopup
-);
-addPopupValidation.enableValidation();

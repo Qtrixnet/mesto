@@ -1,16 +1,13 @@
 .elements__picture {
-  min-width: 100%;
-  max-width: 200%;
   height: 282px;
+  width: 282px;
   align-self: flex-start;
   z-index: 1;
   margin: 0;
   transition: all .2s linear;
-  background-color: #252525;
-  background-image: url('../../../images/Logo.svg');
+  background-color: gray;
   background-position: center;
-  background-size: 80%;
-  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .elements__picture:hover {

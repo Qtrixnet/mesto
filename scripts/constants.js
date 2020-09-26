@@ -1,3 +1,6 @@
+// константа с кодом клавиши ESC
+export const escKeyCode = 27;
+
 //Разметка шаблона карточки
 export const cardTemplate = document.querySelector(".cardTemplate");
 

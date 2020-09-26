@@ -1,4 +1,3 @@
-import { initialCards } from "./initialCards.js";
 import * as constants from "./constants.js";
 import { openPopup } from "./index.js";
 
@@ -10,19 +9,22 @@ export class Card {
   }
 
   _getTemplate() {
-    const CardElement = document
+    const cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".elements__list-item")
       .cloneNode(true);
 
-    return CardElement;
+    return cardElement;
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".elements__picture").src = this._link;
-    this._element.querySelector(".elements__picture").alt = this._name;
-    this._element.querySelector(".elements__text").textContent = this._name;
+    // константы с изображением и текстом карточки
+    const elementPictureLink = this._element.querySelector(".elements__picture");
+    const elementText = this._element.querySelector(".elements__text");
+
+    elementPictureLink.style.backgroundImage = "url("+`${this._link}`+")";
+    elementText.textContent = this._name;
 
     this._setEventListeners();
 
@@ -66,10 +68,3 @@ export class Card {
     constants.popupDescription.textContent = this._name;
   }
 }
-
-initialCards.forEach((item) => {
-  const card = new Card(item, ".cardTemplate");
-  const cardElement = card.generateCard();
-
-  constants.cardsContainer.append(cardElement);
-});
