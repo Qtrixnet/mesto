@@ -2,8 +2,8 @@ export const enableValidation = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
+  inputError: ".popup__input-error",
   errorClass: "popup__input-error_visible",
 };
 
@@ -13,10 +13,12 @@ export class FormValidator {
     this._form = popupForm;
     this._formSelector = popupElements.formSelector;
     this._inputSelector = popupElements.inputSelector;
-    this._inputErrorClass = popupElements.inputErrorClass;
-    this._errorClass = popupElements.errorClass;
     this._submitButtonSelector = popupElements.submitButtonSelector;
+    this._inputErrorClass = popupElements.inputErrorClass;
+    this._inputError = popupElements.inputError;
+    this._errorClass = popupElements.errorClass;
     this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._errors = Array.from(this._form.querySelectorAll(this._inputError));
   }
 
   // Переключение состояния кнопки
@@ -57,6 +59,17 @@ export class FormValidator {
     this._errorElement.classList.remove(this._errorClass);
     this._errorElement.textContent = "";
   }
+
+  // Скрытие ошибок и очистка полей 
+  hideAllErrors() { 
+    this._errors.forEach((error) => { 
+      error.classList.remove(this._errorClass); 
+      error.textContent = ""; 
+    }); 
+    this._inputs.forEach((input) => { 
+      input.classList.remove(this._inputErrorClass); 
+    }); 
+  } 
 
   // Установка слушателей
   _setEventListeners() {
