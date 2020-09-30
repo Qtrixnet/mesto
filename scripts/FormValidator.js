@@ -21,11 +21,19 @@ export class FormValidator {
     this._errors = Array.from(this._form.querySelectorAll(this._inputError));
   }
 
+  // Дизейбл кнопки сабмита
+  _disableSubmitButton() {
+    this._button.setAttribute("disabled", true);
+    this._button.classList.add("popup__button_disabled");
+  }
+
   // Переключение состояния кнопки
   _toggleSubmit() {
     if (this._hasInvalidInput()) {
-      this._button.setAttribute("disabled", true);
-      this._button.classList.add("popup__button_disabled");
+      /* С каждым ревью, допущенные ошибки кажутся такими глупыми когда смотришь на них после комментариев 
+      и думаешь "почему я сам не догадался сделать?" Спасибо за ревью Максим, приятно получать 
+      адекватную обратную связь о своих ошибках и исправлять их.*/
+      this._disableSubmitButton();
     } else {
       this._button.removeAttribute("disabled", true);
       this._button.classList.remove("popup__button_disabled");
@@ -69,6 +77,7 @@ export class FormValidator {
     this._inputs.forEach((input) => { 
       input.classList.remove(this._inputErrorClass); 
     }); 
+    this._disableSubmitButton();
   } 
 
   // Установка слушателей
@@ -88,6 +97,9 @@ export class FormValidator {
   // Валидация форм
   enableValidation() {
     this._setEventListeners();
-    this._form.addEventListener("submit", () => this._toggleSubmit());
+    this._form.addEventListener("submit", (event) => 
+      event.preventDefault(),
+      this._toggleSubmit(),
+    );
   }
 }

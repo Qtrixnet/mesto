@@ -21,20 +21,6 @@ const addPopupValidation = new FormValidator(
 // Открытие попапа
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
-  // Активный попап
-  const activePopup = document.querySelector(".popup_opened");
-  editPopupValidation.hideAllErrors();
-  addPopupValidation.hideAllErrors();
-
-  // Сабмит в активном попапе
-  const PopupButton = activePopup.querySelector(".popup__button");
-  
-  // Дизейбл кнопки происходит в классе с валидацией, но при открытии попапа также вешается дизейбл если в нем есть кнопка
-  if (activePopup.contains(PopupButton)) {
-    PopupButton.setAttribute("disabled", true);
-    PopupButton.classList.add("popup__button_disabled");
-  }
-  
   closeOnEsc(popup);
 }
 
@@ -47,7 +33,7 @@ function closePopup(popup) {
 // Закрытие на ESC
 function closeOnEsc() {
   document.onkeyup = (event) => {
-    if (event.keyCode == constants.escKeyCode) {
+    if (event.keyCode === constants.escKeyCode) {
       // Активный попап
       const activePopup = document.querySelector(".popup_opened");
       closePopup(activePopup);
@@ -124,11 +110,13 @@ const popupEditCloseButton = constants.editPopup.querySelector(
     constants.nameInput.value = constants.profileName.textContent;
     constants.jobInput.value = constants.profileJob.textContent;
     openPopup(constants.editPopup);
+    editPopupValidation.hideAllErrors();
   });
   
   //слушатель на кнопке добавления карточки
   constants.cardAddButton.addEventListener("click", function () {
     openPopup(constants.addPopup);
+    addPopupValidation.hideAllErrors();
   });
   
   //слушатель на оверлее попапа редактирования
