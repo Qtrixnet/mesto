@@ -12,9 +12,9 @@ export default class PopupWithImage extends Popup {
 
   //* Перезапись родительского метода
   open(data) {
+    super.open();
     this._image.src = data.image;
     this._image.alt = data.text;
     this._imageSubtitle.textContent = `${data.text} by Brent Olson 📷`;
-    super.open();
   }
 }

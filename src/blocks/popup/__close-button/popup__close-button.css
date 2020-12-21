@@ -10,7 +10,7 @@
   padding: 0;
   top: -50px;
   right: -50px;
-  transition: all .2s linear;
+  transition: all 0.2s linear;
   z-index: 3;
 }
 
@@ -20,7 +20,7 @@
 
 .popup__close-button:hover {
   cursor: pointer;
-  opacity: .6;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {

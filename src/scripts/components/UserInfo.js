@@ -5,16 +5,16 @@ export default class UserInfo {
     this._job = profileJob;
   }
 
-  getInfo() {
-    const userData = {
+  getUserInfo() {
+    const userInfo = {
       name: this._name.textContent,
       job: this._job.textContent,
     };
-    return userData;
+    return userInfo;
   }
 
-  setInfo(userData) {
-    this._name.textContent = userData.name;
-    this._job.textContent = userData.job;
+  setUserInfo(userInfo) {
+    this._name.textContent = userInfo.name;
+    this._job.textContent = userInfo.job;
   }
 }

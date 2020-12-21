@@ -1,5 +1,5 @@
 //* Изначальные карточки
-export const initialCards = [
+export const сards = [
   {
     name: "Morning in a tent",
     link: "./images/cards/camping.jpg",
@@ -24,7 +24,22 @@ export const initialCards = [
     name: "Iceland",
     link: "./images/cards/iceland.jpg",
   },
+  {
+    name: "Zion National Park, United States",
+    link: "./images/cards/zion-national-park.jpg",
+  },
+  {
+    name: "Grand Canyon National Park, United States",
+    link: "./images/cards/grandc.jpg",
+  },
+  {
+    name: "Moab, United States",
+    link: "./images/cards/moab.jpg",
+  },
 ];
+
+//* Разворачиваем массив с карточками для отображения по порядку через prepend
+export const initialCards = сards.reverse();
 
 //* Данные для валидации форм
 export const enableValidation = {

@@ -60,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const editPopup = new PopupWithForm(editProfilePopup, {
     formSubmitCallBack: (data) => {
-      userInfo.setInfo(data);
+      userInfo.setUserInfo(data);
       editPopup.close();
     },
   });
@@ -92,7 +92,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   //* Установка слушателей
   profileEditButton.addEventListener("click", () => {
-    const data = userInfo.getInfo();
+    const data = userInfo.getUserInfo();
     editProfileNameInput.value = data.name;
     editProfileJobInput.value = data.job;
     editPopupValidation.hideAllErrors();

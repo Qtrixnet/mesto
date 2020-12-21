@@ -5,10 +5,11 @@
   max-height: 75vh;
   margin: 0;
   z-index: 3;
+  color: white;
   border-radius: 5px;
-  background-color: #84a1c9;
-  background-image: url('../../../images/Logo-black.svg');
-  background-position: center;
-  background-size: 80%;
+  background: rgb(115,160,223);
+  background: url("../../../images/Logo-white.svg"), linear-gradient(180deg, rgba(115,160,223,1) 0%, rgba(77,79,163,0.9) 50%, rgba(49,21,120,0.9) 100%);
+  background-size: 50%, contain;
   background-repeat: no-repeat;
+  background-position: center;
 }

@@ -1,9 +1,9 @@
 //* Класс карточки
 export class Card {
-  constructor(data, cardSelector, openImagePopup) {
+  constructor(data, cardSelector, handleCardClick) {
     this._data = data;
     this._cardSelector = cardSelector;
-    this._openCardImage = openImagePopup;
+    this._handleCardClick = handleCardClick;
     this._element = this._getTemplate();
     this._likeButton = this._element.querySelector(".elements__like-button");
     this._deleteButton = this._element.querySelector(
@@ -41,7 +41,7 @@ export class Card {
 
     this._element
       .querySelector(".elements__picture")
-      .addEventListener("click", this._openCardImage);
+      .addEventListener("click", this._handleCardClick);
   }
 
   //* Переключение состояния лайка
@@ -53,5 +53,6 @@ export class Card {
   //* Удаление карточки
   _deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 }

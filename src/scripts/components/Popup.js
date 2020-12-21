@@ -11,29 +11,29 @@ export default class Popup {
 
   //* Расчет ширины вертикального скролла
   //* При открытии попапа блокируется прокрутка страницы и чтобы контент не дергался, странице добавляется граница справа шириной с полосу прокрутки
-  _calcScroll() {
-    const div = document.createElement("div");
-    div.style.width = "50px";
-    div.style.height = "50px";
-    div.style.overflowY = "scroll";
-    div.style.visibility = "hidden";
+  _calcScrollWidth() {
+    const auxiliaryBlock = document.createElement("div");
+    auxiliaryBlock.style.width = "50px";
+    auxiliaryBlock.style.height = "50px";
+    auxiliaryBlock.style.overflowY = "scroll";
+    auxiliaryBlock.style.visibility = "hidden";
 
-    document.body.appendChild(div);
-    const scrollWidth = div.offsetWidth - div.clientWidth;
-    div.remove();
+    document.body.appendChild(auxiliaryBlock);
+    const scrollWidth = auxiliaryBlock.offsetWidth - auxiliaryBlock.clientWidth;
+    auxiliaryBlock.remove();
 
     return scrollWidth;
   }
 
   //* Метод открытия попапа и блокировки скролла страницы
   open() {
-    const scroll = this._calcScroll();
+    const scrollWidth = this._calcScrollWidth();
     document.addEventListener("keyup", this._handleEscClose);
     this._popupSelector.classList.add("popup_opened");
     document.body.style.overflow = "hidden";
 
     //* Добавление границы с шириной равной ширине скролла
-    document.body.style.borderRight = `${scroll}px solid black`;
+    document.body.style.borderRight = `${scrollWidth}px solid black`;
   }
 
   //* Метод закрытия попапа
@@ -41,12 +41,12 @@ export default class Popup {
     document.removeEventListener("keyup", this._handleEscClose);
     this._popupSelector.classList.remove("popup_opened");
     document.body.style.overflow = "";
-    document.body.style.borderRight = "0";
+    document.body.style.borderRight = "none";
   }
 
   //* Метод закрытия на ESC
-  _handleEscClose(event) {
-    if (event.key === "Escape") {
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") {
       this.close();
     }
   }
