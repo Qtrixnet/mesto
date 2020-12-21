@@ -1,40 +1,52 @@
+//* Импорт изображений для Webpack
+import morning from '../../images/cards/camping.jpg';
+import house from '../../images/cards/house.jpg';
+import syracuse from '../../images/cards/syracuse.jpg';
+import canyon from '../../images/cards/united-states.jpg';
+import mountainsFog from '../../images/cards/mountains.jpg';
+import iceland from '../../images/cards/iceland.jpg';
+import zion from '../../images/cards/zion-national-park.jpg';
+import grandCanyon from '../../images/cards/grandc.jpg';
+import moab from '../../images/cards/moab.jpg';
+
+
 //* Изначальные карточки
 export const сards = [
   {
     name: "Morning in a tent",
-    link: "./images/cards/camping.jpg",
+    link: morning,
   },
   {
     name: "Lonely house",
-    link: "./images/cards/house.jpg",
+    link: house,
   },
   {
     name: "Syracuse road, United States",
-    link: "./images/cards/syracuse.jpg",
+    link: syracuse,
   },
   {
     name: "Canyon, United States",
-    link: "./images/cards/united-states.jpg",
+    link: canyon,
   },
   {
     name: "Mountains fog",
-    link: "./images/cards/mountains.jpg",
+    link: mountainsFog,
   },
   {
     name: "Iceland",
-    link: "./images/cards/iceland.jpg",
+    link: iceland,
   },
   {
     name: "Zion National Park, United States",
-    link: "./images/cards/zion-national-park.jpg",
+    link: zion,
   },
   {
     name: "Grand Canyon National Park, United States",
-    link: "./images/cards/grandc.jpg",
+    link: grandCanyon,
   },
   {
     name: "Moab, United States",
-    link: "./images/cards/moab.jpg",
+    link: moab,
   },
 ];
 

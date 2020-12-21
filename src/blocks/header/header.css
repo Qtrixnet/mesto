@@ -1,7 +1,7 @@
 @import url(./__logo/header__logo.css);
 
 .header {
-  padding: 45px 15% 0px;
+  padding: 45px 15% 0;
   width: 100%;
   box-sizing: border-box;
 }
@@ -21,6 +21,7 @@
     border-bottom: 1px solid rgba(84, 84, 84, 0.7);
     padding: 28px 27px 31px;
   }
+
   .header::after {
     display: none;
   }
