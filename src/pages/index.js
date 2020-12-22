@@ -22,7 +22,6 @@ import {
 } from "../scripts/utils/constants.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-  "use strict";
 
   //* Открытие попапа с фото
   const openImagePopup = (evt) => {
@@ -49,13 +48,13 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Генерация карточек
   const section = new Section(
     {
-      renderer: (data) => {
+      renderItems: (data) => {
         section.addItem(createCard(data));
       },
     },
     elementsList
   );
-  section.renderer(items);
+  section.renderItems(items);
 
   //* Попап редактирования профиля
   const userInfo = new UserInfo({ profileName, profileJob });

@@ -1,7 +1,7 @@
 //* Родительский класс всех попапов
 export default class Popup {
-  constructor(popupSelector) {
-    this._popupSelector = popupSelector;
+  constructor(popupElement) {
+    this._popupSelector = popupElement;
     this._popupOverlay = this._popupSelector.querySelector(".popup__overlay");
     this._popupCloseButton = this._popupSelector.querySelector(
       ".popup__close-button"
