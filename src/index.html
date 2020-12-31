@@ -18,7 +18,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/brent.jpg')%>" alt="Фотография профиля" />
+        <div class="profile__avatar-edit">
+          <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/brent.jpg')%>" alt="Фотография профиля" />
+          <button title="Загрузить новый аватар"class="profile__avatar-edit-button"></button>
+        </div>
         <div class="profile__info">
           <h1 id="profile__name" class="profile__name">Brent Olson</h1>
           <button type="button" title="Редактировать профиль" class="profile__edit-button"></button>
@@ -97,8 +100,11 @@
         <img src="#" class="elements__picture" title="Посмотреть фотографию" alt="Шаблон фото"></img>
         <div class="elements__container">
           <h2 class="elements__text"></h2>
-          <button type="button" class="elements__like-button"></button>
           <button type="button" title="Удалить карточку" class="elements__delete-button"></button>
+          <div class="elements__like-container">
+            <button type="button" class="elements__like-button"></button>
+            <span class="elements__like-counter">8</span>
+          </div>
         </div>
       </li>
     </template>
