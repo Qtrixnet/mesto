@@ -19,8 +19,9 @@
     <main class="content">
       <section class="profile">
         <div class="profile__avatar-edit">
-          <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/brent.jpg')%>" alt="Фотография профиля" />
-          <button title="Загрузить новый аватар"class="profile__avatar-edit-button"></button>
+          <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/brent.jpg')%>"
+            alt="Фотография профиля" />
+          <button title="Загрузить новый аватар" class="profile__avatar-edit-button"></button>
         </div>
         <div class="profile__info">
           <h1 id="profile__name" class="profile__name">Brent Olson</h1>
@@ -44,13 +45,13 @@
         <fieldset class="popup__set">
           <p class="popup__title">Редактировать профиль</p>
           <label class="popup__form-field">
-            <input name="name" placeholder="Имя (только буквы)" required pattern="[a-zA-ZА-Яа-яЁё\s]{2,40}" maxlength="40" class="popup__input" id="popup__name-input"
-              type="text" />
+            <input name="name" placeholder="Имя (только буквы)" required pattern="[a-zA-ZА-Яа-яЁё\s]{2,40}"
+              maxlength="40" class="popup__input" id="popup__name-input" type="text" />
             <span id="popup__name-input-error" class="popup__input-error"></span>
           </label>
           <label class="popup__form-field">
-            <input name="job" placeholder="Профессия (только буквы)" required  pattern="[a-zA-ZА-Яа-яЁё\s]{2,200}" maxlength="200" class="popup__input" id="popup__job-input"
-              type="text" />
+            <input name="job" placeholder="Профессия (только буквы)" required pattern="[a-zA-ZА-Яа-яЁё\s]{2,200}"
+              maxlength="200" class="popup__input" id="popup__job-input" type="text" />
             <span id="popup__job-input-error" class="popup__input-error"></span>
           </label>
           <button type="submit" class="popup__button">
@@ -84,6 +85,7 @@
       <div class="popup__overlay"></div>
     </div>
 
+    <!-- Попап открытия фотографии -->
     <div id="openPicture" class="popup">
       <div class="popup__fullScreen">
         <div class="popup__image-desription">
@@ -95,6 +97,35 @@
       <div class="popup__overlay"></div>
     </div>
 
+    <!-- Попап подтверждения -->
+    <div id="confirm" class="popup">
+      <form name="confirmDeleteCard" class="popup__form" novalidate>
+        <fieldset class="popup__set">
+          <p class="popup__title popup__title_confirm">Вы уверены?</p>
+          <button type="submit" class="popup__button popup__button_confirm">Да</button>
+          <button type="button" class="popup__close-button"></button>
+        </fieldset>
+      </form>
+      <div class="popup__overlay"></div>
+    </div>
+
+    <!-- Попап обновления аватара -->
+    <div id="update" class="popup">
+      <form name="updateAvatar" class="popup__form" novalidate>
+        <fieldset class="popup__set">
+          <p class="popup__title">Обновить аватар</p>
+          <label class="popup__form-field">
+            <input name="avatarLink" class="popup__input" id="popup__avatarLink-input" required
+              placeholder="Ссылка на аватарку" type="url" />
+            <span id="popup__avatarLink-input-error" class="popup__input-error"></span>
+          </label>
+          <button type="submit" class="popup__button">Сохранить</button>
+        </fieldset>
+        <button type="button" class="popup__close-button"></button>
+      </form>
+      <div class="popup__overlay"></div>
+    </div>
+
     <template class="cardTemplate">
       <li class="elements__list-item">
         <img src="#" class="elements__picture" title="Посмотреть фотографию" alt="Шаблон фото"></img>
@@ -103,7 +134,7 @@
           <button type="button" title="Удалить карточку" class="elements__delete-button"></button>
           <div class="elements__like-container">
             <button type="button" class="elements__like-button"></button>
-            <span class="elements__like-counter">8</span>
+            <span class="elements__like-counter"></span>
           </div>
         </div>
       </li>
