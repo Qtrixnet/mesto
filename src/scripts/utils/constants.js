@@ -13,39 +13,39 @@ import moab from '../../images/cards/moab.jpg';
 //* Изначальные карточки
 export const сards = [
   {
-    name: "Morning in a tent",
+    name: "Утро в палатках",
     link: morning,
   },
   {
-    name: "Lonely house",
+    name: "Одинокий домик",
     link: house,
   },
   {
-    name: "Syracuse road, United States",
+    name: "Дорога в Сиракьюс, США",
     link: syracuse,
   },
   {
-    name: "Canyon, United States",
+    name: "Каньон, США",
     link: canyon,
   },
   {
-    name: "Mountains fog",
+    name: "Горный туман",
     link: mountainsFog,
   },
   {
-    name: "Iceland",
+    name: "Айслэнд",
     link: iceland,
   },
   {
-    name: "Zion National Park, United States",
+    name: "Национальный парк Сион, США",
     link: zion,
   },
   {
-    name: "Grand Canyon National Park, United States",
+    name: "Национальный парк Гранд Каньон, США",
     link: grandCanyon,
   },
   {
-    name: "Moab, United States",
+    name: "Моаб, США",
     link: moab,
   },
 ];
@@ -66,6 +66,7 @@ export const enableValidation = {
 //* Основные константы
 export const profileName = document.querySelector(".profile__name");
 export const profileJob = document.querySelector(".profile__job");
+export const profileAvatar = document.querySelector(".profile__avatar");
 
 export const profileEditButton = document.querySelector(
   ".profile__edit-button"

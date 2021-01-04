@@ -1,10 +1,12 @@
 //* Класс с пользовательскими данными
 export default class UserInfo {
-  constructor({ profileName, profileJob }) {
+  constructor({ profileName, profileJob, profileAvatar }) {
     this._name = profileName;
     this._job = profileJob;
+    // this._profileId = profileId;
+    this._profileAvatar = profileAvatar;
   }
-
+                       
   getUserInfo() {
     const userInfo = {
       name: this._name.textContent,
@@ -15,6 +17,10 @@ export default class UserInfo {
 
   setUserInfo(userInfo) {
     this._name.textContent = userInfo.name;
-    this._job.textContent = userInfo.job;
+    this._job.textContent = userInfo.about;
+  }
+
+  setUserAvatar(data) {
+    this._avatar.src = data.avatar;
   }
 }
