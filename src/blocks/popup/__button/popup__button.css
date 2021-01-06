@@ -9,7 +9,7 @@
   padding: 14px 0;
   margin-top: 18px;
   border: none;
-  transition: all 0.2s linear;
+  transition: all .1s linear;
 }
 
 .popup__button:hover {

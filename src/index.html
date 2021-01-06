@@ -19,14 +19,14 @@
     <main class="content">
       <section class="profile">
         <div class="profile__avatar-edit">
-          <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/brent.jpg')%>"
+          <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/prof.jpg')%>"
             alt="Фотография профиля" />
           <button title="Загрузить новый аватар" class="profile__avatar-edit-button"></button>
         </div>
         <div class="profile__info">
-          <h1 id="profile__name" class="profile__name">Данные загружаются...</h1>
+          <h1 id="profile__name" class="profile__name">Кто здесь?</h1>
+          <p id="profile__job" class="profile__job">смотрим...</p>
           <button type="button" title="Редактировать профиль" class="profile__edit-button"></button>
-          <p id="profile__job" class="profile__job"></p>
         </div>
         <button type="button" title="Добавить новую фотографию" class="profile__add-button"></button>
       </section>
@@ -36,7 +36,7 @@
     </main>
 
     <footer class="footer">
-      <p class="footer__author">&copy; 2020 Kirill Shashichev 💜 Яндекс Практикум</p>
+      <p class="footer__author">&copy; 2020 Kirill Shashichev 💙 Яндекс Практикум</p>
     </footer>
 
     <!-- Попап редактирования -->
@@ -115,7 +115,7 @@
         <fieldset class="popup__set">
           <p class="popup__title">Обновить аватар</p>
           <label class="popup__form-field">
-            <input name="avatarLink" class="popup__input" id="popup__avatarLink-input" required
+            <input name="avatar" class="popup__input" id="popup__avatarLink-input" required
               placeholder="Ссылка на аватарку" type="url" />
             <span id="popup__avatarLink-input-error" class="popup__input-error"></span>
           </label>

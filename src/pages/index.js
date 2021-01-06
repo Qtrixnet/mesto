@@ -6,12 +6,16 @@ import { Card } from "../scripts/components/Card.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import PopupConfirm from "../scripts/components/PopoupConfirm";
 import Api from "../scripts/components/Api.js";
 import {
   initialCards as items,
   editProfilePopup,
+  avatarEditPopup,
   profileEditButton,
+  profileAvatarEditButton,
   addCardPopup,
+  cardDeletePopup,
   profileJob,
   profileName,
   profileAvatar,
@@ -24,7 +28,6 @@ import {
 } from "../scripts/utils/constants.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-
   const api = new Api({
     serverUrl: "https://mesto.nomoreparties.co/v1/cohort-19/",
     token: "4fc24223-fbb6-4e5b-bedd-d51fcb2b9911",
@@ -32,13 +35,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let profileId;
 
-  Promise.all([api.getUserInfo(), api.getInitialCards()])
+  Promise.all([api.getUserInfo()]) //api.getInitialCards()
     .then((result) => {
+      console.log(result);
       const userInfoObj = result[0];
-      profileId = result[0]._id;
+      // profileId = result[0]._id;
       userInfo.setUserInfo(userInfoObj);
       userInfo.setUserAvatar(userInfoObj);
-      section._renderer(result[1]);
+      // section._renderer(result[1]);
     })
     .catch((err) => console.log(err));
 
@@ -64,6 +68,20 @@ window.addEventListener("DOMContentLoaded", () => {
     return cardElement;
   };
 
+  //! Попап удаления карточки
+  const popupDeleteImage = new PopupConfirm(cardDeletePopup, {
+    formSubmitCallBack: (data) => {
+      api
+        .deleteCard(data._id)
+        .then(() => {
+          data.item.remove();
+          popupDeleteImage.close();
+        })
+        .catch((err) => console.log(err));
+    },
+  });
+  popupDeleteImage.setEventListeners();
+
   //* Генерация карточек
   const section = new Section(
     {
@@ -80,20 +98,41 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const editPopup = new PopupWithForm(editProfilePopup, {
     formSubmitCallBack: (data, button) => {
-      button.textContent = 'Сохранение...';
-      api.editProfile(data)
-      .then((res) => {
-        console.log(res)
-        userInfo.setUserInfo(res); 
-        editPopup.close();
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        button.textContent = "Сохранить"
-      })
+      button.textContent = "Сохранение...";
+      api
+        .editProfile(data)
+        .then((res) => {
+          console.log(res);
+          userInfo.setUserInfo(res);
+          editPopup.close();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          button.textContent = "Сохранить";
+        });
     },
   });
   editPopup.setEventListeners();
+
+  //* Попап редактирования аватарки
+  const avatarEdit = new PopupWithForm(avatarEditPopup, {
+    formSubmitCallBack: (data, button) => {
+      button.textContent = 'Сохранение...';
+      api
+        .editAvatar(data)
+        .then((result) => {
+          console.log(result);
+          userInfo.setUserAvatar(result);
+          avatarEdit.close();
+          avatarEditPopopValidation.toggleButtonState();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          button.textContent = 'Сохранить';
+        })
+    }
+  });
+  avatarEdit.setEventListeners();
 
   //* Попап добавления карточки
   const addNewCardPopup = new PopupWithForm(addCardPopup, {
@@ -113,7 +152,8 @@ window.addEventListener("DOMContentLoaded", () => {
       enableValidation,
       editProfilePopup
     ),
-    addPopupValidation = new FormValidator(enableValidation, addCardPopup);
+    addPopupValidation = new FormValidator(enableValidation, addCardPopup),
+    avatarEditPopopValidation = new FormValidator(enableValidation, avatarEditPopup);
 
   //* Активация валидации
   editPopupValidation.enableValidation();
@@ -133,4 +173,8 @@ window.addEventListener("DOMContentLoaded", () => {
     profileAddButton.blur();
     addPopupValidation.hideAllErrors();
   });
+  profileAvatarEditButton.addEventListener("click", () => {
+    avatarEdit.open();
+    profileAvatarEditButton.blur();
+  })
 });

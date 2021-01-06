@@ -71,6 +71,9 @@ export const profileAvatar = document.querySelector(".profile__avatar");
 export const profileEditButton = document.querySelector(
   ".profile__edit-button"
 );
+export const profileAvatarEditButton = document.querySelector(".profile__avatar-edit-button");
+export const avatarEditPopup = document.querySelector("#update");
+export const cardDeletePopup = document.querySelector("#confirm");
 export const editProfilePopup = document.querySelector("#editProfile");
 export const editProfilePopupForm = editProfilePopup.querySelector(
   ".popup__form"
