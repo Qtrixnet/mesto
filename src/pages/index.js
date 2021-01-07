@@ -33,16 +33,19 @@ window.addEventListener("DOMContentLoaded", () => {
     token: "4fc24223-fbb6-4e5b-bedd-d51fcb2b9911",
   });
 
-  let profileId;
+  //* Переменная с id пользователя
+  let userId;
 
+  //* Запрос данных сервера для превой отрисовки страницы
   Promise.all([api.getUserInfo()]) //api.getInitialCards()
-    .then((result) => {
-      console.log(result);
-      const userInfoObj = result[0];
-      // profileId = result[0]._id;
-      userInfo.setUserInfo(userInfoObj);
-      userInfo.setUserAvatar(userInfoObj);
-      // section._renderer(result[1]);
+    .then((res) => {
+      console.log(res);
+      const userData = res[0]; //* Объект с данными пользователя
+      console.log(userData);
+      userId = userData._id;
+      userInfo.setUserInfo(userData);
+      userInfo.setUserAvatar(userData);
+      // section._renderer(res[1]);
     })
     .catch((err) => console.log(err));
 
@@ -102,7 +105,6 @@ window.addEventListener("DOMContentLoaded", () => {
       api
         .editProfile(data)
         .then((res) => {
-          console.log(res);
           userInfo.setUserInfo(res);
           editPopup.close();
         })
@@ -120,11 +122,9 @@ window.addEventListener("DOMContentLoaded", () => {
       button.textContent = 'Сохранение...';
       api
         .editAvatar(data)
-        .then((result) => {
-          console.log(result);
-          userInfo.setUserAvatar(result);
+        .then((res) => {
+          userInfo.setUserAvatar(res);
           avatarEdit.close();
-          avatarEditPopopValidation.toggleButtonState();
         })
         .catch((err) => console.log(err))
         .finally(() => {
@@ -158,6 +158,7 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Активация валидации
   editPopupValidation.enableValidation();
   addPopupValidation.enableValidation();
+  avatarEditPopopValidation.enableValidation();
 
   //* Установка слушателей
   profileEditButton.addEventListener("click", () => {
@@ -176,5 +177,6 @@ window.addEventListener("DOMContentLoaded", () => {
   profileAvatarEditButton.addEventListener("click", () => {
     avatarEdit.open();
     profileAvatarEditButton.blur();
+    avatarEditPopopValidation.hideAllErrors();
   })
 });
