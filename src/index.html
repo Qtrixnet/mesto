@@ -20,7 +20,7 @@
       <section class="profile">
         <div class="profile__avatar-edit">
           <img class="profile__avatar" title="Аватар профиля" src="<%=require('./images/prof.jpg')%>"
-            alt="Фотография профиля" />
+            alt="Аватар" />
           <button title="Загрузить новый аватар" class="profile__avatar-edit-button"></button>
         </div>
         <div class="profile__info">
@@ -45,12 +45,12 @@
         <fieldset class="popup__set">
           <p class="popup__title">Редактировать профиль</p>
           <label class="popup__form-field">
-            <input name="name" placeholder="Имя (только буквы)" required pattern="[a-zA-ZА-Яа-яЁё\s]{2,40}"
+            <input name="name" placeholder="Имя (только буквы)" required
               maxlength="40" class="popup__input" id="popup__name-input" type="text" />
             <span id="popup__name-input-error" class="popup__input-error"></span>
           </label>
           <label class="popup__form-field">
-            <input name="job" placeholder="Профессия (только буквы)" required pattern="[a-zA-ZА-Яа-яЁё\s]{2,200}"
+            <input name="job" placeholder="Профессия (только буквы)" required
               maxlength="200" class="popup__input" id="popup__job-input" type="text" />
             <span id="popup__job-input-error" class="popup__input-error"></span>
           </label>
@@ -116,7 +116,7 @@
           <p class="popup__title">Обновить аватар</p>
           <label class="popup__form-field">
             <input name="avatar" class="popup__input" id="popup__avatarLink-input" required
-              placeholder="Ссылка на аватарку" type="url" />
+              placeholder="Ссылка на изображение" type="url" />
             <span id="popup__avatarLink-input-error" class="popup__input-error"></span>
           </label>
           <button type="submit" class="popup__button">Сохранить</button>

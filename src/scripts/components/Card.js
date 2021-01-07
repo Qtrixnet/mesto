@@ -9,8 +9,10 @@ export class Card {
     this._deleteButton = this._element.querySelector(
       ".elements__delete-button"
     );
+    this.__likeCounter = this._element.querySelector(".elements__like-counter");
   }
 
+  //! OK
   //* Получение шаблона разметки
   _getTemplate() {
     const cardElement = document
@@ -20,16 +22,24 @@ export class Card {
     return cardElement;
   }
 
+  _like() {
+    if (this._data.likes.length === 0) {
+      return ':('
+    } else {
+      return this._data.likes.length
+    }
+  }
+
   //* Создание карточки
   createCardElement() {
     this._setEventListeners();
     const cardImage = this._element.querySelector(".elements__picture");
-    cardImage.alt = `${this._data.name} by Brent Olson`;
+    cardImage.alt = `${this._data.name}`;
     cardImage.src = this._data.link;
     this._element.querySelector(
       ".elements__text"
     ).textContent = this._data.name;
-
+    this._element.querySelector(".elements__like-counter").textContent = this._like();
     return this._element;
   }
 
@@ -48,6 +58,16 @@ export class Card {
   _likeToggler() {
     this._likeButton.classList.toggle("heartbeat");
     this._likeButton.classList.toggle("elements__like-button_active");
+
+
+
+    if(this._likeButton.classList.contains("elements__like-button_active")) {
+      this._data.likes.length++
+      this.__likeCounter.textContent = this._like()
+    } else {
+      this._data.likes.length--
+      this.__likeCounter.textContent = this._like()
+    }
   }
 
   //* Удаление карточки

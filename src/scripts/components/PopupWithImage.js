@@ -15,6 +15,6 @@ export default class PopupWithImage extends Popup {
     super.open();
     this._image.src = data.image;
     this._image.alt = data.text;
-    this._imageSubtitle.textContent = `${data.text}, фотограф - Брент Олсон 📷`;
+    this._imageSubtitle.textContent = `${data.text}`;
   }
 }

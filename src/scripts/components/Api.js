@@ -65,20 +65,21 @@ export default class Api {
   }
 
   //* Запрос на добавление карточки
-  // addNewCard(data) {
-  //   return fetch(`${this._baseUrl}cards`, {
-  //     method: 'POST',
-  //     headers: {
-  //       authorization: this._token,
-  //       'Content-Type': 'applocation/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: data.name,
-  //       link: data.link
-  //     })
-  //   })
-  //   .then((res) => this._requestResult(res))
-  // }
+  addNewCard(data) {
+    console.log(`Данные пришедшие в POST запрос класса Api:`,data)
+    return fetch(`${this._baseUrl}cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
+    })
+    .then((res) => this._requestResult(res))
+  }
 
   //* Запрос на удаление карточки
   // deleteCard(data) {

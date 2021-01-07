@@ -9,7 +9,6 @@ import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupConfirm from "../scripts/components/PopoupConfirm";
 import Api from "../scripts/components/Api.js";
 import {
-  // initialCards as items,
   editProfilePopup,
   avatarEditPopup,
   profileEditButton,
@@ -39,13 +38,13 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Запрос данных сервера для превой отрисовки страницы
   Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then((res) => {
-      // console.log(res);
+      console.log(res[1]);
       const userData = res[0]; //* Объект с данными пользователя
       // console.log(userData);
       userId = userData._id;
       userInfo.setUserInfo(userData);
       userInfo.setUserAvatar(userData);
-      section.renderItems(res[1]);
+      section.renderItems(res[1].reverse());
     })
     .catch((err) => console.log(err));
 
@@ -94,7 +93,6 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     elementsList
   );
-  // section.renderItems(items);
 
   //* Попап редактирования профиля
   const userInfo = new UserInfo({ profileName, profileJob, profileAvatar });
@@ -119,7 +117,7 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Попап редактирования аватарки
   const avatarEdit = new PopupWithForm(avatarEditPopup, {
     formSubmitCallBack: (data, button) => {
-      button.textContent = 'Сохранение...';
+      button.textContent = "Сохранение...";
       api
         .editAvatar(data)
         .then((res) => {
@@ -128,21 +126,30 @@ window.addEventListener("DOMContentLoaded", () => {
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          button.textContent = 'Сохранить';
-        })
-    }
+          button.textContent = "Сохранить";
+        });
+    },
   });
   avatarEdit.setEventListeners();
 
   //* Попап добавления карточки
   const addNewCardPopup = new PopupWithForm(addCardPopup, {
-    formSubmitCallBack: (data) => {
+    formSubmitCallBack: (data, button) => {
+      button.textContent = "Сохранение...";
       const item = {
         name: data.placeName,
         link: data.placeLink,
       };
-      section.addItem(createCard(item), true);
-      addNewCardPopup.close();
+      console.log(`Данные отправленные из попапа добавления карточки:`, item)
+      api.addNewCard(item)
+      .then((res) => {
+        section.addItem(createCard(res), true);
+        addNewCardPopup.close();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        button.textContent = "Сохранить";
+      });
     },
   });
   addNewCardPopup.setEventListeners();
@@ -153,7 +160,10 @@ window.addEventListener("DOMContentLoaded", () => {
       editProfilePopup
     ),
     addPopupValidation = new FormValidator(enableValidation, addCardPopup),
-    avatarEditPopopValidation = new FormValidator(enableValidation, avatarEditPopup);
+    avatarEditPopopValidation = new FormValidator(
+      enableValidation,
+      avatarEditPopup
+    );
 
   //* Активация валидации
   editPopupValidation.enableValidation();
@@ -178,5 +188,5 @@ window.addEventListener("DOMContentLoaded", () => {
     avatarEdit.open();
     profileAvatarEditButton.blur();
     avatarEditPopopValidation.hideAllErrors();
-  })
+  });
 });
