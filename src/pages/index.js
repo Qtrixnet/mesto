@@ -9,7 +9,7 @@ import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupConfirm from "../scripts/components/PopoupConfirm";
 import Api from "../scripts/components/Api.js";
 import {
-  initialCards as items,
+  // initialCards as items,
   editProfilePopup,
   avatarEditPopup,
   profileEditButton,
@@ -37,15 +37,15 @@ window.addEventListener("DOMContentLoaded", () => {
   let userId;
 
   //* Запрос данных сервера для превой отрисовки страницы
-  Promise.all([api.getUserInfo()]) //api.getInitialCards()
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       const userData = res[0]; //* Объект с данными пользователя
-      console.log(userData);
+      // console.log(userData);
       userId = userData._id;
       userInfo.setUserInfo(userData);
       userInfo.setUserAvatar(userData);
-      // section._renderer(res[1]);
+      section.renderItems(res[1]);
     })
     .catch((err) => console.log(err));
 
@@ -94,7 +94,7 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     elementsList
   );
-  section.renderItems(items);
+  // section.renderItems(items);
 
   //* Попап редактирования профиля
   const userInfo = new UserInfo({ profileName, profileJob, profileAvatar });

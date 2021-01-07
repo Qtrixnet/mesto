@@ -25,14 +25,14 @@ export default class Api {
   }
 
   //* Запрос изначальных карточек
-  // getInitialCards() {
-  //   return fetch(`${this._baseUrl}cards`, {
-  //     headers: {
-  //       authorization: this._token
-  //     }
-  //   })
-  //   .then((res) => this._requestResult(res))
-  // }
+  getInitialCards() {
+    return fetch(`${this._baseUrl}cards`, {
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then((res) => this._requestResult(res))
+  }
 
   editAvatar(data) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
