@@ -24,6 +24,7 @@ import {
   editProfileJobInput,
   enableValidation,
   profileAddButton,
+  spinner,
 } from "../scripts/utils/constants.js";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -35,10 +36,12 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Переменная с id пользователя
   let userId;
 
+  const initialData = [api.getUserInfo(), api.getInitialCards()];
+
   //* Запрос данных сервера для превой отрисовки страницы
-  Promise.all([api.getUserInfo(), api.getInitialCards()])
+  Promise.all(initialData)
     .then((res) => {
-      console.log(res[1]);
+      // console.log(res);
       const userData = res[0]; //* Объект с данными пользователя
       // console.log(userData);
       userId = userData._id;
@@ -63,26 +66,48 @@ window.addEventListener("DOMContentLoaded", () => {
     popupWithImage.open(data);
   };
 
+  const handleDeleteCard = (data) => {
+    deleteCardPopup.data = data;
+    deleteCardPopup.open();
+    console.log(data);
+  };
+
+  // const handleLikeCardClick = (data) => {
+  //   return api.addCardLike(data)
+  // };
+
+  // const handleDeleteLikeCardClick = (data) => {
+  //   return api.deleteCardLike(data)
+  // };
+
   //* Создание карточки
   const createCard = (data) => {
-    const card = new Card(data, ".cardTemplate", openImagePopup);
+    const card = new Card(
+      data,
+      ".cardTemplate",
+      userId,
+      openImagePopup,
+      handleDeleteCard,
+      // handleLikeCardClick,
+      // handleDeleteLikeCardClick
+    );
     const cardElement = card.createCardElement(data);
     return cardElement;
   };
 
   //! Попап удаления карточки
-  const popupDeleteImage = new PopupConfirm(cardDeletePopup, {
+  const deleteCardPopup = new PopupConfirm(cardDeletePopup, {
     formSubmitCallBack: (data) => {
       api
-        .deleteCard(data._id)
+        .deleteCard(data.cardId) //!
         .then(() => {
-          data.item.remove();
-          popupDeleteImage.close();
+          data.card.remove();
+          deleteCardPopup.close();
         })
         .catch((err) => console.log(err));
     },
   });
-  popupDeleteImage.setEventListeners();
+  deleteCardPopup.setEventListeners();
 
   //* Генерация карточек
   const section = new Section(
@@ -99,7 +124,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const editPopup = new PopupWithForm(editProfilePopup, {
     formSubmitCallBack: (data, button) => {
-      button.textContent = "Сохранение...";
+      button.textContent = "Сохранение";
+      button.append(spinner);
       api
         .editProfile(data)
         .then((res) => {
@@ -117,7 +143,8 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Попап редактирования аватарки
   const avatarEdit = new PopupWithForm(avatarEditPopup, {
     formSubmitCallBack: (data, button) => {
-      button.textContent = "Сохранение...";
+      button.textContent = "Сохранение";
+      button.append(spinner);
       api
         .editAvatar(data)
         .then((res) => {
@@ -135,21 +162,22 @@ window.addEventListener("DOMContentLoaded", () => {
   //* Попап добавления карточки
   const addNewCardPopup = new PopupWithForm(addCardPopup, {
     formSubmitCallBack: (data, button) => {
-      button.textContent = "Сохранение...";
+      button.textContent = "Сохранение";
+      button.append(spinner);
       const item = {
         name: data.placeName,
         link: data.placeLink,
       };
-      console.log(`Данные отправленные из попапа добавления карточки:`, item)
-      api.addNewCard(item)
-      .then((res) => {
-        section.addItem(createCard(res), true);
-        addNewCardPopup.close();
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        button.textContent = "Сохранить";
-      });
+      api
+        .addNewCard(item)
+        .then((res) => {
+          section.addItem(createCard(res), true);
+          addNewCardPopup.close();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          button.textContent = "Сохранить";
+        });
     },
   });
   addNewCardPopup.setEventListeners();

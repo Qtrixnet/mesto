@@ -36,3 +36,5 @@ export const addCardPopup = document.querySelector("#addCard");
 export const openPicturePopup = document.querySelector("#openPicture");
 
 export const elementsList = document.querySelector(".elements__list");
+
+export const spinner = document.querySelector('.spinner');

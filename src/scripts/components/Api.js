@@ -66,7 +66,6 @@ export default class Api {
 
   //* Запрос на добавление карточки
   addNewCard(data) {
-    console.log(`Данные пришедшие в POST запрос класса Api:`,data)
     return fetch(`${this._baseUrl}cards`, {
       method: 'POST',
       headers: {
@@ -82,15 +81,15 @@ export default class Api {
   }
 
   //* Запрос на удаление карточки
-  // deleteCard(data) {
-  //   return fetch(`${this._baseUrl}cards/${data}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       authorization: this._token
-  //     }
-  //   })
-  //   .then((res) => this._requestResult(res))
-  // }
+  deleteCard(data) {
+    return fetch(`${this._baseUrl}cards/${data}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then((res) => this._requestResult(res))
+  }
 
   //* Запрос на добавление лайка карточке
   // addCardLike(data) {
