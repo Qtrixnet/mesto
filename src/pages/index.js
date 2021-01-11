@@ -33,8 +33,8 @@ window.addEventListener("DOMContentLoaded", () => {
     token: "4fc24223-fbb6-4e5b-bedd-d51fcb2b9911",
   });
 
-  //* Переменная с id пользователя
-  let userId;
+  //* Переменная с id пользователя и лайки
+  let userId, addCardLike, deleteCardLike;
 
   const initialData = [api.getUserInfo(), api.getInitialCards()];
 
@@ -66,19 +66,10 @@ window.addEventListener("DOMContentLoaded", () => {
     popupWithImage.open(data);
   };
 
-  const handleDeleteCard = (data) => {
+  const deleteCard = (data) => {
     deleteCardPopup.data = data;
     deleteCardPopup.open();
-    console.log(data);
   };
-
-  // const handleLikeCardClick = (data) => {
-  //   return api.addCardLike(data)
-  // };
-
-  // const handleDeleteLikeCardClick = (data) => {
-  //   return api.deleteCardLike(data)
-  // };
 
   //* Создание карточки
   const createCard = (data) => {
@@ -87,19 +78,23 @@ window.addEventListener("DOMContentLoaded", () => {
       ".cardTemplate",
       userId,
       openImagePopup,
-      handleDeleteCard,
-      // handleLikeCardClick,
-      // handleDeleteLikeCardClick
+      deleteCard,
+      (addCardLike = (data) => {
+        return api.addCardLike(data);
+      }),
+      (deleteCardLike = (data) => {
+        return api.deleteCardLike(data);
+      })
     );
     const cardElement = card.createCardElement(data);
     return cardElement;
   };
 
-  //! Попап удаления карточки
+  //* Попап удаления карточки
   const deleteCardPopup = new PopupConfirm(cardDeletePopup, {
     formSubmitCallBack: (data) => {
       api
-        .deleteCard(data.cardId) //!
+        .deleteCard(data.cardId)
         .then(() => {
           data.card.remove();
           deleteCardPopup.close();

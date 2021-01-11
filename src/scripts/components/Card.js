@@ -5,16 +5,15 @@ export class Card {
     cardTemplate,
     userId,
     imagePopup,
-    handleDeleteCard
-    // handleDeleteCard,
-    // handleLikeCard,
-    // handleUnlikeCard
+    deleteCard,
+    addCardLike,
+    deleteCardLike
   ) {
     this._data = data; //* полные данные о карточке
     this._cardTemplate = cardTemplate; //* класс шаблона разметки
-    this._userId = userId; //* id моего профиля
+    this._userId = userId; //* id профиля
+    this._cardId = data._id; //* id карточки
     this._cardOwnerId = data.owner._id; //* id владельца карточки
-    this._cardId = data._id;
     this._imagePopup = imagePopup; //* функция открытия попапа с фото
     this._element = this._getTemplate(); //* разметка карточки
     this._likeButton = this._element.querySelector(".elements__like-button");
@@ -22,10 +21,10 @@ export class Card {
       ".elements__delete-button"
     );
     this._likeCounter = this._element.querySelector(".elements__like-counter");
-    this._handleDeleteCard = handleDeleteCard;
-    // this._handleLikeCard = handleLikeCard;
-    // this._handleUnlikeCard = handleUnlikeCard;
-    // console.log(data._id);
+    this._deleteCard = deleteCard;
+    this._addCardLike = addCardLike;
+    this._deleteCardLike = deleteCardLike;
+    // console.log(data);
   }
 
   //* Получение шаблона разметки
@@ -49,13 +48,18 @@ export class Card {
     this._element.querySelector(
       ".elements__like-counter"
     ).textContent = this._data.likes.length;
-    this._cardOwnerCheck();
+    this._setIsLiked();
     return this._element;
   }
 
   //* Установка слушателей
   _setEventListeners() {
-    this._deleteButton.addEventListener("click", () => this._deleteCard());
+    if (this._cardOwnerId === this._userId) {
+      this._deleteButton.classList.add("elements__delete-button_active");
+      this._deleteButton.addEventListener("click", () =>
+        this._deleteButtonClick()
+      );
+    }
 
     this._likeButton.addEventListener("click", () => this._likeToggler());
 
@@ -70,35 +74,38 @@ export class Card {
     this._likeButton.classList.toggle("elements__like-button_active");
 
     if (this._likeButton.classList.contains("elements__like-button_active")) {
-      this._data.likes.length++;
-      this._likeCounter.textContent = this._data.likes.length;
-      // this._handleLikeCardClick(this._cardOwnerId);
+      this._likeCounter.textContent = this._data.likes.length + 1;
+      this._addCardLike(this._cardId)
+        .then((res) => {
+          this._data = res;
+          this.likeCounter.textContent = this._data.likes.length;
+        })
+        .catch((err) => console.log(err));
     } else {
-      this._data.likes.length--;
-      this._likeCounter.textContent = this._data.likes.length;
-      // this._handleDeleteLikeCardClick(this._cardOwnerId);
+      this._likeCounter.textContent = this._data.likes.length - 1;
+      this._deleteCardLike(this._cardId)
+        .then((res) => {
+          this._data = res;
+          this.likeCounter.textContent = this._data.likes.length;
+        })
+        .catch((err) => console.log(err));
     }
   }
 
-  _handleTrashCardClick() {
-    const data = {
-      card: this._element,
-      cardId: this._cardId
-    }
-    this._handleDeleteCard(data)
-  }
-
-  _cardOwnerCheck() {
-    if (this._cardOwnerId === this._userId) {
-      this._deleteButton.classList.add("elements__delete-button_active");
-      this._deleteButton.addEventListener("click", () => this._handleTrashCardClick());
-    }
+  _setIsLiked() {
+    this._data.likes.forEach((like) => {
+      if (like._id == this._userId) {
+        this._likeButton.classList.toggle("elements__like-button_active");
+      }
+    });
   }
 
   //* Удаление карточки
-  _deleteCard() {
-    // this._element.remove();
-    // this._element = null;
-    this._handleDeleteCard()
+  _deleteButtonClick() {
+    const data = {
+      card: this._element,
+      cardId: this._cardId,
+    };
+    this._deleteCard(data);
   }
 }
