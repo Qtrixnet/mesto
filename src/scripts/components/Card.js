@@ -78,7 +78,6 @@ export class Card {
       this._addCardLike(this._cardId)
         .then((res) => {
           this._data = res;
-          this.likeCounter.textContent = this._data.likes.length;
         })
         .catch((err) => console.log(err));
     } else {
@@ -86,7 +85,6 @@ export class Card {
       this._deleteCardLike(this._cardId)
         .then((res) => {
           this._data = res;
-          this.likeCounter.textContent = this._data.likes.length;
         })
         .catch((err) => console.log(err));
     }
