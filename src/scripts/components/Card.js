@@ -93,7 +93,8 @@ export class Card {
   _setIsLiked() {
     this._data.likes.forEach((like) => {
       if (like._id == this._userId) {
-        this._likeButton.classList.toggle("elements__like-button_active");
+        this._likeButton.classList.add("elements__like-button_active");
+        this._likeButton.classList.add("heartbeat");
       }
     });
   }
