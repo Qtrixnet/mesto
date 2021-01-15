@@ -6,7 +6,7 @@ export default class UserInfo {
     this._profileId = profileId;
     this._profileAvatar = profileAvatar;
   }
-                       
+
   getUserInfo() {
     const userInfo = {
       name: this._name.textContent,

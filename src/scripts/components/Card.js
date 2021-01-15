@@ -24,7 +24,6 @@ export class Card {
     this._deleteCard = deleteCard;
     this._addCardLike = addCardLike;
     this._deleteCardLike = deleteCardLike;
-    // console.log(data);
   }
 
   //* Получение шаблона разметки
