@@ -69,33 +69,33 @@ export class Card {
 
   //* Переключение состояния лайка
   _likeToggler() {
-    this._likeButton.classList.toggle("heartbeat");
-    this._likeButton.classList.toggle("elements__like-button_active");
-
-    if (this._likeButton.classList.contains("elements__like-button_active")) {
-      this._likeCounter.textContent = this._data.likes.length + 1;
+    if (!this._likeButton.classList.contains("elements__like-button_active")) {
       this._addCardLike(this._cardId)
         .then((res) => {
           this._data = res;
+          this._likeCounter.textContent = res.likes.length;
+          this._likeButton.classList.add("heartbeat");
+          this._likeButton.classList.add("elements__like-button_active");
         })
         .catch((err) => console.log(err));
     } else {
-      this._likeCounter.textContent = this._data.likes.length - 1;
       this._deleteCardLike(this._cardId)
         .then((res) => {
           this._data = res;
+          this._likeCounter.textContent = res.likes.length;
+          this._likeButton.classList.remove("heartbeat");
+          this._likeButton.classList.remove("elements__like-button_active");
         })
         .catch((err) => console.log(err));
     }
   }
 
   _setIsLiked() {
-    this._data.likes.forEach((like) => {
-      if (like._id == this._userId) {
-        this._likeButton.classList.add("elements__like-button_active");
-        this._likeButton.classList.add("heartbeat");
-      }
-    });
+    //* Условие будет true если в массиве лайков найдется лайк с id пользователя
+    if (this._data.likes.some(elem => elem._id === this._userId)) {
+      this._likeButton.classList.add("elements__like-button_active");
+      this._likeButton.classList.add("heartbeat");
+    }
   }
 
   //* Удаление карточки

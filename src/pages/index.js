@@ -162,14 +162,19 @@ addNewCardPopup.setEventListeners();
 
 //* Создание классов валидации
 const editPopupValidation = new FormValidator(
-    enableValidation,
-    editProfilePopup
-  ),
-  addPopupValidation = new FormValidator(enableValidation, addCardPopup),
-  avatarEditPopopValidation = new FormValidator(
-    enableValidation,
-    avatarEditPopup
-  );
+  enableValidation,
+  editProfilePopup
+);
+
+const addPopupValidation = new FormValidator(
+  enableValidation, 
+  addCardPopup
+);
+
+const avatarEditPopopValidation = new FormValidator(
+  enableValidation,
+  avatarEditPopup
+);
 
 //* Активация валидации
 editPopupValidation.enableValidation();
@@ -198,11 +203,10 @@ profileAvatarEditButton.addEventListener("click", () => {
 
 //* Запрос данных сервера для превой отрисовки страницы
 Promise.all(initialData)
-  .then((res) => {
-    const userData = res[0]; //* Объект с данными пользователя
+  .then(([userData, cards]) => {
     userId = userData._id;
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
-    section.renderItems(res[1].reverse());
+    section.renderItems(cards.reverse());
   })
   .catch((err) => console.log(err));
